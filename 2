@@ -1,0 +1,24 @@
+---
+tipo: practica
+unidad: 2
+gist: "https://gist.github.com/TU_USUARIO/GIST_ID_1"
+---
+
+# Herencia Ej 1 - Completa el esqueleto
+
+- **Qué me pidieron resolver:** Completar el código de una clase derivada `Auto` que hereda de `Vehiculo`, conectando sus constructores a través de `super()` para inicializar correctamente los atributos heredados y propios.
+- **Mi solución (resumen):** Estandaricé el parámetro `anio` en la clase base para evitar errores de sintaxis, agregué los parámetros `marca` y `anio` a la firma del `__init__` de `Auto` y transmití estos datos mediante `super().__init__(marca, anio)`.
+
+Video: https://youtube.com/watch?v=TU_VIDEO_ID
+
+### Conceptos que usé
+- [[Herencia básica]]
+- [[Constructor]]
+- [[Clase]]
+- [[Atributo]]
+- [[super()]]
+
+### Qué se me dificultó y qué aprendí
+- **Dificultad:** Inicialmente la falta de coincidencia entre el nombre del parámetro `año` y la asignación `self.anio = anio` causaba un error de variables no definidas.
+- **Aprendizaje:** Entendí con claridad el flujo de datos: la clase hija actúa como receptor inicial de todos los valores y delega hacia arriba mediante `super()` la construcción de la parte genérica del objeto.
+- 
