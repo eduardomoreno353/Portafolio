@@ -1,0 +1,15 @@
+class Persona:
+    def __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+
+class Empleado(Persona):
+    def __init__(self, nombre, edad, puesto):
+        # 1. Se pasa tanto 'nombre' como 'edad' a la clase padre
+        super().__init__(nombre, edad)
+        # 2. Se asigna el atributo propio
+        self.puesto = puesto
+
+# Ejecución correcta:
+trabajador = Empleado("Ana", 30, "Gerente")
+print(f"Empleado: {trabajador.nombre} | Edad: {trabajador.edad} | Puesto: {trabajador.puesto}")
