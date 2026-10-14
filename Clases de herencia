@@ -1,0 +1,17 @@
+# Clases abstractas
+
+## Lo que predije vs lo que pasó
+| Ejercicio | Mi predicción | Resultado real | ¿Acerté? |
+|---|---|---|---|
+| 1 | Falla solo AnimalAbs() | Falla solo AnimalAbs() | ✅ |
+| 2 | TypeError: Cuadrado sigue siendo abstracta porque falta perimetro() | TypeError: Cuadrado sigue siendo abstracta porque falta perimetro() | ✅ |
+| 3A | Corre sin error | Corre sin error | ✅ |
+| 3B | TypeError: faltan argumentos del constructor | TypeError: faltan argumentos del constructor | ✅ |# Clases abstractas
+
+## Lo que predije vs lo que pasó
+| Ejercicio | Mi predicción | Resultado real | ¿Acerté? |
+|---|---|---|---|
+| 1 | Falla solo AnimalAbs() | Falla solo AnimalAbs() | ✅ |
+| 2 | TypeError: Cuadrado sigue siendo abstracta porque falta perimetro() | TypeError: Cuadrado sigue siendo abstracta porque falta perimetro() | ✅ |
+| 3A | Corre sin error | Corre sin error | ✅ |
+| 3B | TypeError: faltan argumentos del constructor | TypeError: faltan argumentos del constructor | ✅ |
