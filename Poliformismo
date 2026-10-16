@@ -1,0 +1,7 @@
+perro = Perro()
+gato = Gato()
+vaca = Vaca()
+
+animal_habla(perro)  # Salida: Guau, guau!
+animal_habla(gato)   # Salida: Miau!
+animal_habla(vaca)   # Salida: Muuu!
