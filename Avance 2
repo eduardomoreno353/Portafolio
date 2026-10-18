@@ -1,0 +1,65 @@
+'''Sistema de gestión y preparación de alimentos orientado a objetos'''
+
+# Creación de la clase base
+class Comida:
+    def __init__(self, nombre, ingredientes):
+        self.nombre = nombre
+        self.ingredientes = ingredientes
+        # Aplicación de Encapsulamiento
+        self.__costo_base = 0.0
+
+    def obtener_costo(self):
+        return self.__costo_base
+
+    def establecer_costo(self, costo):
+        if costo >= 0:
+            self.__costo_base = costo
+        else:
+            print("Error: El costo no puede ser negativo.")
+
+    def preparar(self):
+        return f"Preparando {self.nombre} con ingredientes básicos."
+
+# Uso de super() y Herencia
+class PlatoPrincipal(Comida):
+    def __init__(self, nombre, ingredientes, tipo_coccion):
+        # Usamos super() para inicializar atributos de la clase base
+        super().__init__(nombre, ingredientes)
+        self.tipo_coccion = tipo_coccion
+
+    # Sobrescritura de métodos (Polimorfismo)
+    def preparar(self):
+        preparacion_base = super().preparar() # Llamada opcional a la base
+        return f"{preparacion_base} Luego, cocinar a {self.tipo_coccion} para el plato principal"
+
+class Postre(Comida):
+    def __init__(self, nombre, ingredientes, es_frio):
+        super().__init__(nombre, ingredientes)
+        self.es_frio = es_frio
+
+    # Sobrescritura de métodos (Polimorfismo)
+    def preparar(self):
+        estado_frio = "frío" if self.es_frio else "caliente"
+        return f"Preparando el postre {self.nombre}. Mezclar ingredientes y servir {estado_frio}."
+
+# Instanciación y pruebas
+if __name__ == "__main__":
+    print("--- Pruebas de Sistema de Comida ---\n")
+
+    # Creación de instancias
+    filete = PlatoPrincipal("Filete Mignon", ["carne", "pimienta", "sal"], "parrilla")
+    tiramisu = Postre("Tiramisú", ["mascarpone", "café", "bizcochos"], True)
+
+    # Probando encapsulamiento
+    filete.establecer_costo(25.50)
+    print(f"Plato Principal: {filete.nombre}, Costo: ${filete.obtener_costo():.2f}")
+    print(f"Postre: {tiramisu.nombre}, Costo: ${tiramisu.obtener_costo():.2f}\n")
+
+    # Probando herencia y super()
+    print(f"Detalles de {filete.nombre}: Tipo de cocción - {filete.tipo_coccion}")
+    print(f"Detalles de {tiramisu.nombre}: ¿Es frío? - {tiramisu.es_frio}\n")
+
+    # Probando polimorfismo (preparar() sobrescrito)
+    platos = [filete, tiramisu]
+    for plato in platos:
+        print(f"Acción para {plato.nombre}: {plato.preparar()}")
