@@ -1,0 +1,41 @@
+class Mensaje:
+
+def _init__(self, remitente, asunto):
+
+self.remitente = remitente
+
+self.asunto = asunto
+
+def resumen(self):
+
+return f"De {self.remitente}: {self.asunto}"
+
+class CorreoPhishing (Mensaje):
+
+def
+
+_init__(self, remitente, asunto, url):
+
+super().__init__(remitente, asunto)
+
+self.url = url
+
+super()._init_(remitente, asunto)
+
+class ModuloDefensa (ABC):
+
+@abstractmethod
+
+def aislar_amenaza (self):
+
+pass
+
+class FirewallMetro (ModuloDefensa):
+
+def aislar_amenaza(self):
+
+return "Tráfico bloqueado"
+
+modulo = ModuloDefensa()
+
+# Resultado: TypeError: no se puede instanciar una clase abstracta
