@@ -1,0 +1,45 @@
+from modelos import Gabinete, Herraje, Material, Mesa
+
+
+def ejecutar_pruebas():
+    # 1. Instanciación de materiales (Composición)
+    roble = Material(tipo="Madera de Roble", grosor_mm=25, precio_m2=65.0)
+    melamina = Material(tipo="Melamina Blanca", grosor_mm=18, precio_m2=28.0)
+
+    # 2. Instanciación de una Mesa (Subclase 1)
+    mesa_comedor = Mesa(
+        nombre="Mesa de Comedor 6 Puestos",
+        material=roble,
+        largo_m=1.80,
+        ancho_m=0.90,
+        acabado="Barniz Poliuretano Mate",
+        horas_fabricacion=12.0,
+    )
+    mesa_comedor.agregar_herraje(Herraje("Tornillo estructural 3\"", 0.35, 24))
+    mesa_comedor.agregar_herraje(Herraje("Escuadra metálica oculta", 2.50, 4))
+
+    # 3. Instanciación de un Gabinete (Subclase 2)
+    alacena = Gabinete(
+        nombre="Alacena Superior de Cocina",
+        material=melamina,
+        area_m2=3.20,
+        num_repisas=3,
+        tiene_puertas=True,
+        horas_fabricacion=8.0,
+    )
+    alacena.agregar_herraje(Herraje("Bisagra cazoleta cierre suave", 3.20, 4))
+    alacena.agregar_herraje(Herraje("Jaladera acero inoxidable", 4.50, 2))
+    alacena.agregar_herraje(Herraje("Soporte metálico para repisa", 0.40, 12))
+
+    # 4. Ejecución de pruebas y polimorfismo
+    catalogo_taller = [mesa_comedor, alacena]
+
+    for mueble in catalogo_taller:
+        print("=" * 55)
+        print(mueble.obtener_ficha_tecnica())
+    print("=" * 55)
+
+
+if __name__ == "__main__":
+    ejecutar_pruebas()
+  
