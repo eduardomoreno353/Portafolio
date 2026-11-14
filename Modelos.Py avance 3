@@ -1,0 +1,130 @@
+class Material:
+    """Clase usada para composición: representa la materia prima del mueble."""
+
+    def __init__(self, tipo: str, grosor_mm: int, precio_m2: float):
+        self.tipo = tipo
+        self.grosor_mm = grosor_mm
+        self.precio_m2 = precio_m2
+
+    def __str__(self) -> str:
+        return f"{self.tipo} ({self.grosor_mm} mm)"
+
+
+class Herraje:
+    """Clase usada para composición: representa piezas auxiliares y fijaciones."""
+
+    def __init__(self, nombre: str, precio_unitario: float, cantidad: int):
+        self.nombre = nombre
+        self.precio_unitario = precio_unitario
+        self.cantidad = cantidad
+
+    def calcular_subtotal(self) -> float:
+        return self.precio_unitario * self.cantidad
+
+    def __str__(self) -> str:
+        return f"{self.cantidad}x {self.nombre} (${self.calcular_subtotal():.2f})"
+
+
+class Mueble:
+    """Clase Base que modela cualquier proyecto general de carpintería."""
+
+    def __init__(
+        self,
+        nombre: str,
+        material: Material,
+        area_m2: float,
+        horas_fabricacion: float,
+        tarifa_hora: float = 18.0,
+    ):
+        self.nombre = nombre
+        self.material = material  # Composición (1 a 1)
+        self.area_m2 = area_m2
+        self.horas_fabricacion = horas_fabricacion
+        self.tarifa_hora = tarifa_hora
+        self.herrajes: list[Herraje] = []  # Composición (1 a muchos)
+
+    def agregar_herraje(self, herraje: Herraje) -> None:
+        self.herrajes.append(herraje)
+
+    def calcular_costo_materiales(self) -> float:
+        costo_madera = self.area_m2 * self.material.precio_m2
+        costo_herrajes = sum(h.calcular_subtotal() for h in self.herrajes)
+        return costo_madera + costo_herrajes
+
+    def calcular_costo_total(self) -> float:
+        mano_de_obra = self.horas_fabricacion * self.tarifa_hora
+        return self.calcular_costo_materiales() + mano_de_obra
+
+    def obtener_ficha_tecnica(self) -> str:
+        lista_herrajes = (
+            ", ".join(str(h) for h in self.herrajes) if self.herrajes else "Ninguno"
+        )
+        return (
+            f"Proyecto: {self.nombre}\n"
+            f"  Material principal: {self.material} ({self.area_m2:.2f} m²)\n"
+            f"  Herrajes: {lista_herrajes}\n"
+            f"  Tiempo estimado: {self.horas_fabricacion} hrs"
+        )
+
+
+class Mesa(Mueble):
+    """Subclase que hereda de Mueble y añade dimensiones y acabado superficial."""
+
+    def __init__(
+        self,
+        nombre: str,
+        material: Material,
+        largo_m: float,
+        ancho_m: float,
+        acabado: str,
+        horas_fabricacion: float,
+    ):
+        # Se calcula el área de la cubierta más un 20% adicional para patas y estructura
+        area_total = (largo_m * ancho_m) * 1.20
+        super().__init__(nombre, material, area_total, horas_fabricacion)
+        self.largo_m = largo_m
+        self.ancho_m = ancho_m
+        self.acabado = acabado
+
+    def calcular_costo_total(self) -> float:
+        costo_acabado = 35.0
+        return super().calcular_costo_total() + costo_acabado
+
+    def obtener_ficha_tecnica(self) -> str:
+        ficha_base = super().obtener_ficha_tecnica()
+        return (
+            f"{ficha_base}\n"
+            f"  Dimensiones cubierta: {self.largo_m}m x {self.ancho_m}m\n"
+            f"  Acabado: {self.acabado}\n"
+            f"  Costo Total: ${self.calcular_costo_total():.2f}"
+        )
+
+
+class Gabinete(Mueble):
+    """Subclase que hereda de Mueble y añade configuración interna de almacenamiento."""
+
+    def __init__(
+        self,
+        nombre: str,
+        material: Material,
+        area_m2: float,
+        num_repisas: int,
+        tiene_puertas: bool,
+        horas_fabricacion: float,
+    ):
+        super().__init__(nombre, material, area_m2, horas_fabricacion)
+        self.num_repisas = num_repisas
+        self.tiene_puertas = tiene_puertas
+
+    def calcular_costo_total(self) -> float:
+        extra_repisas = self.num_repisas * 8.0
+        return super().calcular_costo_total() + extra_repisas
+
+    def obtener_ficha_tecnica(self) -> str:
+        ficha_base = super().obtener_ficha_tecnica()
+        puertas_texto = "Sí" if self.tiene_puertas else "No"
+        return (
+            f"{ficha_base}\n"
+            f"  Repisas internas: {self.num_repisas} | Incluye puertas: {puertas_texto}\n"
+            f"  Costo Total: ${self.calcular_costo_total():.2f}"
+        )
